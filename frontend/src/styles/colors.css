@@ -1,0 +1,22 @@
+:root {
+  /*
+   * QHAPAQ
+   * Identidad visual:
+   * Azul profundo + amarillo cálido
+   */
+
+  --qhapaq-blue: #123b66;
+  --qhapaq-blue-dark: #0d2c4d;
+  --qhapaq-blue-soft: #e8f0f7;
+
+  --qhapaq-yellow: #f4c430;
+  --qhapaq-yellow-soft: #fff4c2;
+
+  --qhapaq-background: #f8f6f0;
+  --qhapaq-white: #ffffff;
+
+  --qhapaq-text: #123b66;
+  --qhapaq-text-muted: #64748b;
+
+  --qhapaq-border: #d7dee5;
+}

@@ -1,0 +1,108 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model User {
+  id        String   @id @default(uuid())
+  name      String
+  email     String   @unique
+  password  String
+  whatsapp  String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  posts         Post[]
+  offers        Offer[]
+  notifications Notification[]
+}
+
+model Post {
+  id          String   @id @default(uuid())
+  title       String
+  description String
+
+  type PostType
+
+  // Used when type = REQUEST
+  minBudget Float?
+  maxBudget Float?
+
+  // Used when type = OFFER
+  price         Float?
+  estimatedTime Int?
+
+  location String?
+  status   PostStatus @default(ACTIVE)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  offers Offer[]
+}
+
+enum PostType {
+  REQUEST
+  OFFER
+}
+
+enum PostStatus {
+  ACTIVE
+  CLOSED
+}
+
+model Offer {
+  id            String      @id @default(uuid())
+  price         Float
+  estimatedTime Int
+  message       String
+  status        OfferStatus @default(PENDING)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  postId String
+  post   Post   @relation(fields: [postId], references: [id], onDelete: Cascade)
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  notifications Notification[]
+}
+
+enum OfferStatus {
+  PENDING
+  INTERESTED
+  REJECTED
+  ACCEPTED
+}
+
+
+model Notification {
+  id        String   @id @default(uuid())
+  message   String
+  read      Boolean  @default(false)
+
+  type NotificationType @default(OFFER_ACCEPTED)
+
+  createdAt DateTime @default(now())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  offerId String?
+  offer   Offer? @relation(fields: [offerId], references: [id], onDelete: Cascade)
+}
+
+
+enum NotificationType {
+  OFFER_ACCEPTED
+  OFFER_INTERESTED
+}

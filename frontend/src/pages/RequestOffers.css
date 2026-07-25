@@ -1,0 +1,489 @@
+.request-offers-page {
+  min-height: calc(100vh - 76px);
+  padding: 48px 20px 80px;
+  background: var(--qhapaq-background);
+}
+
+.request-offers-container {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+}
+
+.request-offers-back {
+  margin-bottom: 36px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--qhapaq-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.request-offers-header {
+  padding: 36px;
+  background: var(--qhapaq-white);
+  border: 1px solid var(--qhapaq-border);
+}
+
+.request-offers-label,
+.offer-received-label {
+  color: var(--qhapaq-blue);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.request-offers-header h1 {
+  margin: 14px 0 18px;
+  color: var(--qhapaq-blue);
+  font-size: clamp(32px, 5vw, 52px);
+}
+
+.request-offers-header p {
+  color: var(--qhapaq-text-muted);
+  line-height: 1.7;
+}
+
+.offers-section {
+  margin-top: 48px;
+}
+
+.offers-section-heading {
+  display: flex;
+  align-items: end;
+  justify-content: space-between;
+  margin-bottom: 24px;
+}
+
+.offers-section-heading h2 {
+  margin: 10px 0 0;
+  color: var(--qhapaq-blue);
+  font-size: 30px;
+}
+
+.offers-count {
+  color: var(--qhapaq-text-muted);
+  font-weight: 700;
+}
+
+.offers-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.offer-received-card {
+  padding: 28px;
+  background: var(--qhapaq-white);
+  border: 1px solid var(--qhapaq-border);
+}
+
+.offer-received-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.offer-received-top h3 {
+  margin: 8px 0 0;
+  color: var(--qhapaq-blue);
+  font-size: 24px;
+}
+
+.offer-received-details {
+  display: flex;
+  gap: 48px;
+  margin-top: 26px;
+  padding: 20px 0;
+  border-top: 1px solid var(--qhapaq-border);
+  border-bottom: 1px solid var(--qhapaq-border);
+}
+
+.offer-received-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 7px;
+}
+
+.offer-received-details span,
+.offer-received-message span {
+  color: var(--qhapaq-text-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.offer-received-details strong {
+  color: var(--qhapaq-blue);
+  font-size: 20px;
+}
+
+.offer-received-message {
+  margin-top: 22px;
+}
+
+.offer-received-message p {
+  color: var(--qhapaq-text-muted);
+  line-height: 1.7;
+}
+
+.offer-interest-button {
+  margin-top: 24px;
+  padding: 13px 18px;
+  border: 0;
+  background: var(--qhapaq-yellow);
+  color: var(--qhapaq-blue);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.offers-empty {
+  padding: 70px 24px;
+  text-align: center;
+  background: var(--qhapaq-white);
+  border: 1px solid var(--qhapaq-border);
+}
+
+.offers-empty h3 {
+  color: var(--qhapaq-blue);
+}
+
+.offers-empty p {
+  color: var(--qhapaq-text-muted);
+}
+
+.request-offers-error {
+  padding: 14px;
+  background: #fbeaea;
+  color: #a33131;
+}
+
+@media (max-width: 700px) {
+  .request-offers-header,
+  .offer-received-card {
+    padding: 24px;
+  }
+
+  .offers-section-heading,
+  .offer-received-top {
+    align-items: start;
+    flex-direction: column;
+  }
+
+  .offer-received-details {
+    flex-wrap: wrap;
+  }
+}
+
+.offer-contact-section {
+  margin-top: 24px;
+  padding-top: 22px;
+  border-top: 1px solid var(--qhapaq-border);
+}
+
+.offer-selected-message {
+  margin-bottom: 18px;
+  color: #247a4b;
+  font-weight: 800;
+}
+
+.offer-contact-info {
+  padding: 18px;
+  background: #f5f7f5;
+  border: 1px solid var(--qhapaq-border);
+}
+
+.offer-contact-info > span {
+  color: var(--qhapaq-text-muted);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.offer-contact-info p {
+  margin: 10px 0 0;
+  color: var(--qhapaq-blue);
+  font-weight: 600;
+}
+
+.offer-cancel-button {
+  margin-top: 18px;
+  padding: 11px 16px;
+  border: 1px solid var(--qhapaq-border);
+  background: transparent;
+  color: var(--qhapaq-text-muted);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.offer-cancel-button:hover {
+  border-color: var(--qhapaq-blue);
+  color: var(--qhapaq-blue);
+}
+
+/* =========================
+   ACCEPT OFFER
+========================= */
+
+.offer-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.offer-accept-button {
+  width: 100%;
+  padding: 15px 20px;
+
+  border: 1px solid var(--qhapaq-yellow);
+  background: var(--qhapaq-yellow);
+  color: var(--qhapaq-blue);
+
+  font-size: 14px;
+  font-weight: 800;
+  letter-spacing: 0.02em;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background 0.2s ease;
+}
+
+.offer-accept-button:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px
+    rgba(0, 0, 0, 0.16);
+  background: #ffd84d;
+}
+
+.offer-accept-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.offer-cancel-button {
+  width: 100%;
+}
+
+/* =========================
+   CONFIRMATION MODAL
+========================= */
+
+.offer-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(7, 29, 52, 0.72);
+
+  animation: offer-modal-fade-in
+    0.2s ease;
+}
+
+.offer-confirm-modal {
+  width: min(100%, 480px);
+
+  padding: 36px;
+
+  background: var(--qhapaq-white);
+
+  border: 1px solid
+    rgba(7, 29, 52, 0.12);
+
+  box-shadow:
+    0 24px 80px
+    rgba(0, 0, 0, 0.28);
+
+  animation: offer-modal-slide-up
+    0.25s ease;
+}
+
+.offer-modal-icon {
+  width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  margin-bottom: 20px;
+
+  background: var(--qhapaq-yellow);
+  color: var(--qhapaq-blue);
+
+  font-size: 24px;
+  font-weight: 900;
+}
+
+.offer-modal-label {
+  display: block;
+
+  margin-bottom: 10px;
+
+  color: var(--qhapaq-blue);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+
+.offer-confirm-modal h2 {
+  margin: 0 0 14px;
+
+  color: var(--qhapaq-blue);
+
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.offer-confirm-modal > p {
+  margin: 0;
+
+  color: #526273;
+
+  font-size: 15px;
+  line-height: 1.6;
+}
+
+.offer-modal-summary {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+
+  margin: 24px 0;
+}
+
+.offer-modal-summary > div {
+  padding: 16px;
+
+  background: #f4f6f8;
+
+  border-left: 3px solid
+    var(--qhapaq-yellow);
+}
+
+.offer-modal-summary span {
+  display: block;
+
+  margin-bottom: 6px;
+
+  color: #6d7b88;
+
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.offer-modal-summary strong {
+  color: var(--qhapaq-blue);
+
+  font-size: 18px;
+}
+
+.offer-modal-warning {
+  padding: 14px 16px;
+
+  background: #fff8df;
+
+  border-left: 3px solid
+    var(--qhapaq-yellow);
+
+  color: #675a2d !important;
+
+  font-size: 13px !important;
+}
+
+.offer-modal-actions {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+.offer-modal-actions button {
+  flex: 1;
+
+  padding: 13px 16px;
+
+  font-size: 14px;
+  font-weight: 700;
+
+  cursor: pointer;
+}
+
+.offer-modal-cancel {
+  border: 1px solid
+    rgba(7, 29, 52, 0.2);
+
+  background: transparent;
+  color: var(--qhapaq-blue);
+}
+
+.offer-modal-cancel:hover {
+  background: #f1f3f5;
+}
+
+.offer-modal-confirm {
+  border: 1px solid var(--qhapaq-yellow);
+
+  background: var(--qhapaq-yellow);
+  color: var(--qhapaq-blue);
+}
+
+.offer-modal-confirm:hover:not(:disabled) {
+  background: #ffd84d;
+}
+
+.offer-modal-confirm:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+@keyframes offer-modal-fade-in {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes offer-modal-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 600px) {
+  .offer-confirm-modal {
+    padding: 28px 22px;
+  }
+
+  .offer-confirm-modal h2 {
+    font-size: 24px;
+  }
+
+  .offer-modal-actions {
+    flex-direction: column-reverse;
+  }
+
+  .offer-modal-summary {
+    gap: 8px;
+  }
+}

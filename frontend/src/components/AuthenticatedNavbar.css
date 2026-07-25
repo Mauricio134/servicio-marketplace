@@ -1,0 +1,45 @@
+.navbar-user {
+  color: var(--qhapaq-white);
+
+  font-size: 14px;
+  font-weight: 500;
+
+  white-space: nowrap;
+}
+
+.navbar-user strong {
+  color: var(--qhapaq-yellow);
+  font-weight: 700;
+}
+
+.navbar-logout {
+  border: 0;
+
+  padding: 10px 0;
+
+  background: transparent;
+
+  color: var(--qhapaq-white);
+
+  font-family: inherit;
+  font-size: 14px;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition: color 0.2s ease;
+}
+
+.navbar-logout:hover {
+  color: var(--qhapaq-yellow);
+}
+
+@media (max-width: 600px) {
+  .navbar-user {
+    font-size: 13px;
+  }
+
+  .navbar-logout {
+    font-size: 13px;
+  }
+}

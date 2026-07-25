@@ -1,0 +1,239 @@
+.post-details-page {
+  min-height: calc(100vh - 76px);
+  padding: 48px 20px 80px;
+  background: var(--qhapaq-background);
+}
+
+.post-details-container {
+  width: min(1180px, 100%);
+  margin: 0 auto;
+}
+
+.post-details-back {
+  margin-bottom: 32px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--qhapaq-text-muted);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.post-details-back:hover {
+  color: var(--qhapaq-blue);
+}
+
+.post-details-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(360px, 0.65fr);
+  gap: 32px;
+  align-items: start;
+}
+
+.post-details-content,
+.offer-card {
+  padding: 36px;
+  background: var(--qhapaq-white);
+  border: 1px solid var(--qhapaq-border);
+}
+
+.post-details-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 28px;
+}
+
+.post-details-label,
+.offer-card-label {
+  color: var(--qhapaq-blue);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.post-details-status {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.post-details-status.active {
+  background: #e6f4ea;
+  color: #237a3b;
+}
+
+.post-details-status.closed {
+  background: #f3e8e8;
+  color: #9a3030;
+}
+
+.post-details-content h1 {
+  margin: 0 0 24px;
+  color: var(--qhapaq-blue);
+  font-size: clamp(32px, 5vw, 52px);
+  line-height: 1.05;
+}
+
+.post-details-description {
+  max-width: 720px;
+  margin: 0;
+  color: var(--qhapaq-text-muted);
+  font-size: 17px;
+  line-height: 1.8;
+}
+
+.post-details-info {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 32px;
+  margin-top: 40px;
+  padding-top: 28px;
+  border-top: 1px solid var(--qhapaq-border);
+}
+
+.post-details-info div,
+.post-details-author {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.post-details-info span,
+.post-details-author span {
+  color: var(--qhapaq-text-muted);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+}
+
+.post-details-info strong,
+.post-details-author strong {
+  color: var(--qhapaq-blue);
+}
+
+.post-details-author {
+  margin-top: 32px;
+}
+
+.offer-card {
+  position: sticky;
+  top: 24px;
+}
+
+.offer-card-heading h2 {
+  margin: 12px 0;
+  color: var(--qhapaq-blue);
+  font-size: 30px;
+}
+
+.offer-card-heading p {
+  margin: 0 0 28px;
+  color: var(--qhapaq-text-muted);
+  line-height: 1.6;
+}
+
+.offer-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.offer-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.offer-field label {
+  color: var(--qhapaq-blue);
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.offer-field input,
+.offer-field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 13px 14px;
+  border: 1px solid var(--qhapaq-border);
+  background: var(--qhapaq-background);
+  color: var(--qhapaq-text);
+  font: inherit;
+  outline: none;
+}
+
+.offer-field input:focus,
+.offer-field textarea:focus {
+  border-color: var(--qhapaq-blue);
+}
+
+.offer-field textarea {
+  resize: vertical;
+}
+
+.offer-field small {
+  color: var(--qhapaq-text-muted);
+  font-size: 12px;
+}
+
+.offer-input-with-prefix {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--qhapaq-border);
+  background: var(--qhapaq-background);
+}
+
+.offer-input-with-prefix span {
+  padding-left: 14px;
+  color: var(--qhapaq-blue);
+  font-weight: 700;
+}
+
+.offer-input-with-prefix input {
+  border: 0;
+  background: transparent;
+}
+
+.offer-error,
+.post-details-error {
+  padding: 12px 14px;
+  background: #fbeaea;
+  color: #a33131;
+  font-size: 14px;
+}
+
+.offer-submit {
+  padding: 14px 20px;
+  border: 0;
+  background: var(--qhapaq-yellow);
+  color: var(--qhapaq-blue);
+  font-weight: 800;
+  cursor: pointer;
+}
+
+.offer-submit:hover {
+  background: #ffd84d;
+}
+
+.offer-submit:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+@media (max-width: 800px) {
+  .post-details-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .offer-card {
+    position: static;
+  }
+
+  .post-details-content,
+  .offer-card {
+    padding: 24px;
+  }
+}
