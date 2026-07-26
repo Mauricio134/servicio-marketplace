@@ -21,6 +21,7 @@ interface Post {
   minBudget: number | null;
   maxBudget: number | null;
   location: string | null;
+  estimatedTime?: number | null;
   status?: "ACTIVE" | "CLOSED";
 }
 
@@ -169,6 +170,16 @@ export default function RequestDetail({
                 {request.location}
               </span>
             )}
+
+            {request.estimatedTime !== null &&
+              request.estimatedTime !== undefined && (
+                <span>
+                  <strong>⏱</strong>
+
+                  Máximo{" "}
+                  {request.estimatedTime} días
+                </span>
+              )}
 
           </div>
         </section>

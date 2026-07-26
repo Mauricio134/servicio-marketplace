@@ -55,7 +55,6 @@ export default function Login({
           response.user,
         ),
       );
-        console.log("RESPUESTA LOGIN:", response);
       onSuccess();
     } catch (error) {
       setError(

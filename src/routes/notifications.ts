@@ -15,7 +15,6 @@ router.get(
       await prisma.notification.deleteMany({
         where: {
           userId: req.userId!,
-          read: true,
           createdAt: {
             lt: new Date(
               Date.now() -

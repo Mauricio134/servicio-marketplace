@@ -87,29 +87,69 @@ export default function Navbar({
     loadNotifications();
   }, [token]);
 
+  useEffect(() => {
+    function handleScroll() {
+      setShowNotifications(false);
+      setExpandedNotificationId(null);
+    }
+
+    function handleClickOutside(
+      event: MouseEvent,
+    ) {
+      const target =
+        event.target as HTMLElement;
+
+      if (
+        !target.closest(
+          ".navbar-notifications-wrapper",
+        )
+      ) {
+        setShowNotifications(false);
+        setExpandedNotificationId(null);
+      }
+    }
+
+    window.addEventListener(
+      "scroll",
+      handleScroll,
+    );
+
+    document.addEventListener(
+      "mousedown",
+      handleClickOutside,
+    );
+
+    return () => {
+      window.removeEventListener(
+        "scroll",
+        handleScroll,
+      );
+
+      document.removeEventListener(
+        "mousedown",
+        handleClickOutside,
+      );
+    };
+  }, []);
+
   async function handleNotificationClick(
     notification: Notification,
   ) {
-    console.log(
-      "NOTIFICACIÓN CLICKEADA:",
-      notification,
-    );
-
-    console.log(
-      "OFERTA DE LA NOTIFICACIÓN:",
-      notification.offer,
-    );
-
     if (!token) {
       return;
     }
 
-    setExpandedNotificationId(
-      (current) =>
-        current === notification.id
-          ? null
-          : notification.id,
-    );
+    if (
+      notification.type ===
+      "OFFER_ACCEPTED"
+    ) {
+      setExpandedNotificationId(
+        (current) =>
+          current === notification.id
+            ? null
+            : notification.id,
+      );
+    }
 
     if (!notification.read) {
       try {
@@ -181,12 +221,18 @@ export default function Navbar({
                 <button
                   className="navbar-notifications-button"
                   type="button"
-                  onClick={() =>
+                  onClick={async () => {
+                    const nextState =
+                      !showNotifications;
+
                     setShowNotifications(
-                      (current) =>
-                        !current,
-                    )
-                  }
+                      nextState,
+                    );
+
+                    if (nextState) {
+                      await loadNotifications();
+                    }
+                  }}
                   aria-label="Notificaciones"
                 >
                   <span className="navbar-bell">
@@ -307,14 +353,19 @@ export default function Navbar({
                                       </span>
                                     </span>
 
-                                    <span className="notification-expand-icon">
-                                      {isExpanded
-                                        ? "⌃"
-                                        : "⌄"}
-                                    </span>
+                                    {notification.type ===
+                                      "OFFER_ACCEPTED" && (
+                                      <span className="notification-expand-icon">
+                                        {isExpanded
+                                          ? "⌃"
+                                          : "⌄"}
+                                      </span>
+                                    )}
                                   </button>
 
-                                  {isExpanded && (
+                                  {isExpanded &&
+                                    notification.type ===
+                                      "OFFER_ACCEPTED" && (
                                     <div className="notification-details">
                                       {!notification.offer ? (
                                         <p>
@@ -324,7 +375,11 @@ export default function Navbar({
                                         <>
                                           <div className="notification-detail-heading">
                                             <span>
-                                              OFERTA ACEPTADA
+                                              {notification.message.includes(
+                                                "rechazada",
+                                              )
+                                                ? "OFERTA RECHAZADA"
+                                                : "OFERTA ACEPTADA"}
                                             </span>
 
                                             <strong>

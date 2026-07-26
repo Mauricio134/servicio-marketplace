@@ -86,26 +86,6 @@ function App() {
     }
   }
 
-  function handleRegisterSuccess() {
-    const storedUser =
-      localStorage.getItem("qhapaq_user");
-
-    if (!storedUser) {
-      setView("landing");
-      return;
-    }
-
-    try {
-      const parsedUser =
-        JSON.parse(storedUser);
-
-      setUser(parsedUser);
-      setView("dashboard");
-    } catch {
-      setView("landing");
-    }
-  }
-
   function handleLogout() {
     localStorage.removeItem(
       "qhapaq_token",
@@ -195,9 +175,6 @@ function App() {
         />
 
         <Register
-          onSuccess={
-            handleRegisterSuccess
-          }
           onLogin={() =>
             setView("login")
           }

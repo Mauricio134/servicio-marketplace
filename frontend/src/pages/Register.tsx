@@ -7,13 +7,11 @@ import {
 import "./Register.css";
 
 interface RegisterProps {
-  onSuccess: () => void;
   onLogin: () => void;
   onBack: () => void;
 }
 
 export default function Register({
-  onSuccess,
   onLogin,
   onBack,
 }: RegisterProps) {
@@ -44,22 +42,15 @@ export default function Register({
     setLoading(true);
 
     try {
-      const response =
-        await registerUser({
-          name,
-          email,
-          password,
-          whatsapp,
-        });
+      await registerUser({
+        name,
+        email,
+        password,
+        whatsapp,
+      });
 
-      localStorage.setItem(
-        "qhapaq_user",
-        JSON.stringify(
-          response
-        ),
-      );
+      onLogin();
 
-      onSuccess();
     } catch (error) {
       setError(
         error instanceof Error

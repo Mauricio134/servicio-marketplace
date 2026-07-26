@@ -74,6 +74,28 @@ router.post(
           },
         });
 
+      const offerCount =
+        await prisma.offer.count({
+          where: {
+            postId,
+          },
+        });
+
+      const notification =
+        await prisma.notification.create({
+          data: {
+            userId: post.userId,
+            message:
+              `Has recibido ${offerCount} ${
+                offerCount === 1
+                  ? "oferta"
+                  : "ofertas"
+              } para "${post.title}".`,
+            type: "NEW_OFFER",
+            offerId: offer.id,
+          },
+        });
+
       res.status(201).json(offer);
     } catch (error) {
       console.error(error);
@@ -307,6 +329,16 @@ router.patch(
                 },
               });
 
+            const rejectedOffers =
+              await tx.offer.findMany({
+                where: {
+                  postId: offer.postId,
+                  id: {
+                    not: offer.id,
+                  },
+                },
+              });
+
             await tx.offer.updateMany({
               where: {
                 postId: offer.postId,
@@ -318,6 +350,18 @@ router.patch(
                 status: "REJECTED",
               },
             });
+
+            for (const rejectedOffer of rejectedOffers) {
+              await tx.notification.create({
+                data: {
+                  userId: rejectedOffer.userId,
+                  message:
+                    `Tu oferta para "${offer.post.title}" ha sido rechazada.`,
+                  type: "OFFER_REJECTED",
+                  offerId: rejectedOffer.id,
+                },
+              });
+            }
 
             await tx.post.update({
               where: {

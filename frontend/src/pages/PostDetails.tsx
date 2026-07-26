@@ -208,6 +208,19 @@ export default function PostDetails({
                   </strong>
                 </div>
               )}
+
+              {post.estimatedTime !== null &&
+                post.estimatedTime !== undefined && (
+                  <div>
+                    <span>
+                      TIEMPO MÁXIMO
+                    </span>
+
+                    <strong>
+                      ⏱ {post.estimatedTime} días
+                    </strong>
+                  </div>
+                )}
             </div>
 
             {post.user && (

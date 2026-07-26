@@ -284,7 +284,11 @@ export interface Notification {
   read: boolean;
   createdAt: string;
   userId: string;
-  type: "OFFER_ACCEPTED";
+  type:
+    | "OFFER_ACCEPTED"
+    | "OFFER_INTERESTED"
+    | "NEW_OFFER"
+    | "OFFER_REJECTED";
 
   offer?: {
     id: string;
