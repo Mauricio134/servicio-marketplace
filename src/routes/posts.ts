@@ -203,7 +203,7 @@ router.get("/:id", async (req, res) => {
     const post =
       await prisma.post.findUnique({
         where: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
         include: {
           user: {
@@ -243,7 +243,7 @@ router.delete(
     try {
       const post = await prisma.post.findUnique({
         where: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
       });
 
@@ -261,7 +261,7 @@ router.delete(
 
       await prisma.post.delete({
         where: {
-          id: req.params.id,
+          id: String(req.params.id),
         },
       });
 
