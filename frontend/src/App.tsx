@@ -323,6 +323,7 @@ function App() {
 
         <PostDetails
           postId={selectedPostId}
+          userId={user.id}
           token={token}
           onBack={() =>
             setView("explore-needs")

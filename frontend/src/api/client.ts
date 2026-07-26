@@ -82,6 +82,17 @@ export interface CreateOfferData {
 async function handleResponse(
   response: Response,
 ) {
+  const contentType =
+    response.headers.get("content-type") || "";
+
+  if (!contentType.includes("application/json")) {
+    const text = await response.text();
+
+    throw new Error(
+      `Server returned ${response.status}: ${text.slice(0, 200)}`,
+    );
+  }
+
   const data = await response.json();
 
   if (!response.ok) {
@@ -220,6 +231,59 @@ export async function getOffers(
   );
 
   return handleResponse(response);
+}
+
+export async function updateOffer(
+  offerId: string,
+  data: CreateOfferData,
+  token: string,
+): Promise<Offer> {
+  const response = await fetch(
+    `${API_URL}/offers/${offerId}`,
+    {
+      method: "PATCH",
+      headers: {
+        "Content-Type":
+          "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify(data),
+    },
+  );
+
+  return handleResponse(response);
+}
+
+export async function deleteOffer(
+  offerId: string,
+  token: string,
+): Promise<void> {
+  const response = await fetch(
+    `${API_URL}/offers/${offerId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    let message =
+      "No se pudo retirar la oferta.";
+
+    try {
+      const data =
+        await response.json();
+
+      message =
+        data.message || message;
+    } catch {
+      // La respuesta no contiene JSON.
+    }
+
+    throw new Error(message);
+  }
 }
 
 export async function cancelOfferInterest(
@@ -362,4 +426,47 @@ export async function markAllNotificationsAsRead(
   );
 
   return handleResponse(response);
+}
+
+export async function getMyPosts(
+  token: string,
+): Promise<Post[]> {
+  const response = await fetch(
+    `${API_URL}/posts/my`,
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  return handleResponse(response);
+}
+
+export async function deletePost(
+  postId: string,
+  token: string,
+): Promise<void> {
+  const response = await fetch(
+    `${API_URL}/posts/${postId}`,
+    {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+
+  if (!response.ok) {
+    let message = "No se pudo eliminar la necesidad.";
+
+    try {
+      const data = await response.json();
+      message = data.message || message;
+    } catch {
+      // La respuesta no contiene JSON.
+    }
+
+    throw new Error(message);
+  }
 }

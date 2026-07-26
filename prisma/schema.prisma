@@ -19,6 +19,7 @@ model User {
   posts         Post[]
   offers        Offer[]
   notifications Notification[]
+
 }
 
 model Post {
@@ -75,6 +76,9 @@ model Offer {
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   notifications Notification[]
+
+
+  @@unique([postId, userId])
 }
 
 enum OfferStatus {

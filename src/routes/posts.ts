@@ -168,6 +168,36 @@ router.get("/", async (_req, res) => {
   }
 });
 
+router.get("/my", authenticate, async (req: AuthRequest, res) => {
+  try {
+    const posts = await prisma.post.findMany({
+      where: {
+        userId: req.userId,
+        type: "REQUEST",
+      },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+          },
+        },
+      },
+      orderBy: {
+        createdAt: "desc",
+      },
+    });
+
+    res.json(posts);
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      message: "Error: Not possible to get my posts",
+    });
+  }
+});
+
 router.get("/:id", async (req, res) => {
   try {
     const post =
@@ -201,5 +231,49 @@ router.get("/:id", async (req, res) => {
     });
   }
 });
+
+/* =========================
+   DELETE POST
+========================= */
+
+router.delete(
+  "/:id",
+  authenticate,
+  async (req: AuthRequest, res) => {
+    try {
+      const post = await prisma.post.findUnique({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      if (!post) {
+        return res.status(404).json({
+          message: "Post not found",
+        });
+      }
+
+      if (post.userId !== req.userId) {
+        return res.status(403).json({
+          message: "You can only delete your own post",
+        });
+      }
+
+      await prisma.post.delete({
+        where: {
+          id: req.params.id,
+        },
+      });
+
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+
+      res.status(500).json({
+        message: "Error: Post not deleted",
+      });
+    }
+  },
+);
 
 export default router;

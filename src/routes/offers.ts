@@ -149,6 +149,159 @@ router.get(
 );
 
 /* =========================
+   UPDATE OFFER
+========================= */
+
+router.patch(
+  "/:id",
+  authenticate,
+  async (
+    req: AuthRequest,
+    res,
+  ) => {
+    try {
+      const {
+        price,
+        estimatedTime,
+        message,
+      } = req.body;
+
+      const offer =
+        await prisma.offer.findUnique({
+          where: {
+            id: String(req.params.id),
+          },
+          include: {
+            post: true,
+          },
+        });
+
+      if (!offer) {
+        return res.status(404).json({
+          message: "Offer not found",
+        });
+      }
+
+      if (offer.userId !== req.userId) {
+        return res.status(403).json({
+          message:
+            "You can only edit your own offer",
+        });
+      }
+
+      if (offer.status === "ACCEPTED") {
+        return res.status(400).json({
+          message:
+            "An accepted offer cannot be edited",
+        });
+      }
+
+      if (offer.post.status === "CLOSED") {
+        return res.status(400).json({
+          message:
+            "Offers cannot be edited after the need is closed",
+        });
+      }
+
+      if (
+        price === undefined &&
+        estimatedTime === undefined &&
+        message === undefined
+      ) {
+        return res.status(400).json({
+          message:
+            "At least one field is required",
+        });
+      }
+
+      const updatedOffer =
+        await prisma.offer.update({
+          where: {
+            id: offer.id,
+          },
+          data: {
+            ...(price !== undefined && {
+              price: Number(price),
+            }),
+
+            ...(estimatedTime !== undefined && {
+              estimatedTime: Number(estimatedTime),
+            }),
+
+            ...(message !== undefined && {
+              message,
+            }),
+          },
+        });
+
+      res.json(updatedOffer);
+    } catch (error) {
+      console.error(error);
+
+      res.status(500).json({
+        message: "Error updating offer",
+      });
+    }
+  },
+);
+
+/* =========================
+   DELETE OFFER
+========================= */
+
+router.delete(
+  "/:id",
+  authenticate,
+  async (
+    req: AuthRequest,
+    res,
+  ) => {
+    try {
+      const offer =
+        await prisma.offer.findUnique({
+          where: {
+            id: String(req.params.id),
+          },
+        });
+
+      if (!offer) {
+        return res.status(404).json({
+          message: "Offer not found",
+        });
+      }
+
+      if (offer.userId !== req.userId) {
+        return res.status(403).json({
+          message:
+            "You can only delete your own offer",
+        });
+      }
+
+      if (offer.status === "ACCEPTED") {
+        return res.status(400).json({
+          message:
+            "Accepted offers cannot be deleted",
+        });
+      }
+
+      await prisma.offer.delete({
+        where: {
+          id: offer.id,
+        },
+      });
+
+      res.status(204).send();
+    } catch (error) {
+      console.error(error);
+
+      res.status(500).json({
+        message: "Error deleting offer",
+      });
+    }
+  },
+);
+
+/* =========================
    MARK OFFER AS INTERESTING
 ========================= */
 

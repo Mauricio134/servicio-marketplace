@@ -487,3 +487,89 @@
     gap: 8px;
   }
 }
+
+
+/* =========================
+   DELETE OFFER MODAL
+========================= */
+
+.offer-confirm-modal {
+  width: min(460px, calc(100vw - 32px));
+  padding: 36px;
+  border-radius: 24px;
+}
+
+.offer-confirm-modal h2 {
+  margin: 16px 0 12px;
+  line-height: 1.2;
+}
+
+.offer-confirm-modal > p {
+  margin: 0 0 20px;
+  line-height: 1.6;
+}
+
+.offer-modal-warning {
+  margin-top: 24px !important;
+  padding: 14px 16px;
+  border-radius: 12px;
+  line-height: 1.5 !important;
+}
+
+.offer-modal-actions {
+  display: flex;
+  gap: 14px;
+  margin-top: 28px;
+}
+
+.offer-modal-actions button {
+  flex: 1;
+  min-height: 48px;
+  padding: 12px 18px;
+  border: none;
+  border-radius: 12px;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease,
+    background 0.2s ease;
+}
+
+.offer-modal-actions button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.offer-modal-actions button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.offer-modal-cancel {
+  background: #f1f1f1;
+  color: #333;
+}
+
+.offer-modal-cancel:hover:not(:disabled) {
+  background: #e5e5e5;
+}
+
+.offer-modal-confirm {
+  background: #111;
+  color: white;
+}
+
+.offer-modal-confirm:hover:not(:disabled) {
+  background: #333;
+}
+
+@media (max-width: 480px) {
+  .offer-confirm-modal {
+    padding: 28px 22px;
+  }
+
+  .offer-modal-actions {
+    flex-direction: column;
+  }
+}

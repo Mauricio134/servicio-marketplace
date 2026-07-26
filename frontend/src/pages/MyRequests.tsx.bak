@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-import { deletePost, getMyPosts, getOffers, type Post, type User } from "../api/client";
+import { deletePost, getMyPosts, getOffers, type Post } from "../api/client";
 
 import "./MyRequests.css";
 
@@ -17,7 +17,10 @@ interface AcceptedOffer {
   estimatedTime: number;
   message: string;
   status: "ACCEPTED";
-  user: User;
+  user: {
+    id: string;
+    name: string;
+  };
 }
 
 export default function MyRequests({
@@ -37,9 +40,6 @@ export default function MyRequests({
 
   const [deletingPostId, setDeletingPostId] =
     useState<string | null>(null);
-
-  const [postToDelete, setPostToDelete] =
-    useState<Post | null>(null);
 
   useEffect(() => {
     async function loadRequests() {
@@ -119,6 +119,14 @@ export default function MyRequests({
   );
 
   async function handleDeletePost(postId: string) {
+    const confirmed = window.confirm(
+      "¿Estás seguro de que deseas eliminar esta necesidad? Esta acción no se puede deshacer.",
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
       setDeletingPostId(postId);
       setError("");
@@ -136,8 +144,6 @@ export default function MyRequests({
           (request) => request.id !== postId,
         ),
       );
-
-      setPostToDelete(null);
     } catch (error) {
       console.error(error);
 
@@ -300,6 +306,7 @@ export default function MyRequests({
                     <article
                       className="request-card request-card-closed"
                       key={request.id}
+                      onClick={() => onOpen(request.id)}
                     >
                       <div className="request-card-top">
                         <span className="request-card-label">
@@ -343,26 +350,6 @@ export default function MyRequests({
                             <strong>
                               {acceptedOffers[request.id].user.name}
                             </strong>
-
-                            <div className="accepted-offer-contact">
-                              <span>
-                                <small>EMAIL</small>
-                                <strong>
-                                  ✉{" "}
-                                  {acceptedOffers[request.id].user.email}
-                                </strong>
-                              </span>
-
-                              {acceptedOffers[request.id].user.whatsapp && (
-                                <span>
-                                  <small>WHATSAPP</small>
-                                  <strong>
-                                    ☎{" "}
-                                    {acceptedOffers[request.id].user.whatsapp}
-                                  </strong>
-                                </span>
-                              )}
-                            </div>
                           </div>
 
                           <div className="accepted-offer-summary-details">
@@ -391,21 +378,29 @@ export default function MyRequests({
                       )}
 
                       <div className="request-card-footer">
-                        <button
-                          type="button"
-                          className="request-card-delete"
-                          disabled={
-                            deletingPostId === request.id
-                          }
-                          onClick={(event) => {
-                            event.stopPropagation();
-                            setPostToDelete(request);
-                          }}
-                        >
-                          {deletingPostId === request.id
-                            ? "Eliminando..."
-                            : "🗑 Eliminar"}
-                        </button>
+                        <span>Ver historial</span>
+
+                        <div className="request-card-actions">
+                          <span className="request-card-arrow">
+                            →
+                          </span>
+
+                          <button
+                            type="button"
+                            className="request-card-delete"
+                            disabled={
+                              deletingPostId === request.id
+                            }
+                            onClick={(event) => {
+                              event.stopPropagation();
+                              handleDeletePost(request.id);
+                            }}
+                          >
+                            {deletingPostId === request.id
+                              ? "Eliminando..."
+                              : "Eliminar"}
+                          </button>
+                        </div>
                       </div>
                     </article>
                   ))}
@@ -416,64 +411,6 @@ export default function MyRequests({
         )}
 
       </div>
-
-      {postToDelete && (
-        <div
-          className="delete-modal-overlay"
-          onClick={() => {
-            if (!deletingPostId) {
-              setPostToDelete(null);
-            }
-          }}
-        >
-          <div
-            className="delete-modal"
-            onClick={(event) => event.stopPropagation()}
-          >
-            <div className="delete-modal-icon">
-              🗑
-            </div>
-
-            <h2>¿Eliminar necesidad?</h2>
-
-            <p>
-              Estás a punto de eliminar:
-            </p>
-
-            <strong className="delete-modal-title">
-              "{postToDelete.title}"
-            </strong>
-
-            <p className="delete-modal-warning">
-              Esta acción no se puede deshacer.
-            </p>
-
-            <div className="delete-modal-actions">
-              <button
-                type="button"
-                className="delete-modal-cancel"
-                disabled={deletingPostId === postToDelete.id}
-                onClick={() => setPostToDelete(null)}
-              >
-                Cancelar
-              </button>
-
-              <button
-                type="button"
-                className="delete-modal-confirm"
-                disabled={deletingPostId === postToDelete.id}
-                onClick={() =>
-                  handleDeletePost(postToDelete.id)
-                }
-              >
-                {deletingPostId === postToDelete.id
-                  ? "Eliminando..."
-                  : "Sí, eliminar"}
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
     </main>
   );
 }

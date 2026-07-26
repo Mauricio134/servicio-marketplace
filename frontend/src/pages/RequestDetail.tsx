@@ -64,16 +64,24 @@ export default function RequestDetail({
       try {
         setLoading(true);
 
-        const [
-          requestData,
-          offersData,
-        ] = await Promise.all([
-          getPostById(postId),
-          getOffers(postId, token),
-        ]);
+        const requestData =
+          await getPostById(postId);
 
         setRequest(requestData);
-        setOffers(offersData);
+
+        try {
+          const offersData =
+            await getOffers(postId, token);
+
+          setOffers(offersData);
+        } catch (error) {
+          console.error(
+            "No se pudieron cargar las ofertas:",
+            error,
+          );
+
+          setOffers([]);
+        }
       } catch {
         setError(
           "No se pudo cargar la necesidad.",

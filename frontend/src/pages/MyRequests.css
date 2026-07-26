@@ -342,3 +342,400 @@
 .my-requests-back:hover {
   color: var(--qhapaq-blue);
 }
+
+/* =========================
+   SECTION HEADERS
+========================= */
+
+.my-requests-section {
+  margin-top: 56px;
+}
+
+.my-requests-section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+
+  margin-bottom: 24px;
+  padding-bottom: 18px;
+
+  border-bottom: 1px solid var(--qhapaq-border);
+}
+
+.my-requests-section-label {
+  display: block;
+
+  margin-bottom: 8px;
+
+  color: var(--qhapaq-yellow);
+
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
+}
+
+.my-requests-section-header h2 {
+  margin: 0;
+
+  color: var(--qhapaq-blue);
+
+  font-size: 28px;
+  line-height: 1.15;
+}
+
+.my-requests-section-count {
+  min-width: 48px;
+  height: 48px;
+
+  display: grid;
+  place-items: center;
+
+  border: 1px solid var(--qhapaq-blue);
+  border-radius: 50%;
+
+  background: var(--qhapaq-blue);
+
+  color: var(--qhapaq-yellow);
+
+  font-size: 18px;
+  font-weight: 800;
+}
+
+.my-requests-history {
+  margin-top: 72px;
+}
+
+@media (max-width: 620px) {
+  .my-requests-section-header h2 {
+    font-size: 22px;
+  }
+
+  .my-requests-section-count {
+    min-width: 42px;
+    height: 42px;
+  }
+}
+
+.request-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.request-card-delete {
+  border: 1px solid #c94b4b;
+  border-radius: 6px;
+
+  padding: 8px 12px;
+
+  background: transparent;
+
+  color: #c94b4b;
+
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.request-card-delete:hover {
+  background: #c94b4b;
+  color: white;
+}
+
+.request-card-delete:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (max-width: 620px) {
+  .request-card-footer {
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .request-card-actions {
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 8px;
+  }
+}
+
+.accepted-offer-summary {
+  margin-top: 20px;
+  padding: 16px;
+
+  border: 1px solid rgba(34, 139, 94, 0.25);
+  border-radius: 10px;
+
+  background: rgba(34, 139, 94, 0.05);
+}
+
+.accepted-offer-summary-header {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  margin-bottom: 14px;
+}
+
+.accepted-offer-summary-header span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #228b5e;
+}
+
+.accepted-offer-summary-header strong {
+  font-size: 16px;
+}
+
+.accepted-offer-summary-details {
+  display: flex;
+  gap: 28px;
+
+  margin-bottom: 12px;
+}
+
+.accepted-offer-summary-details div {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.accepted-offer-summary-details span {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #777;
+}
+
+.accepted-offer-summary-details strong {
+  font-size: 15px;
+}
+
+.accepted-offer-summary p {
+  margin: 0;
+
+  font-size: 13px;
+  line-height: 1.5;
+  font-style: italic;
+  color: #555;
+}
+
+@media (max-width: 620px) {
+  .accepted-offer-summary-details {
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+.accepted-offer-contact {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(0, 0, 0, 0.08);
+  overflow: hidden;
+}
+
+.accepted-offer-contact span {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  min-width: 0;
+  max-width: 100%;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #555;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+}
+
+.accepted-offer-contact span::first-line {
+  color: #888;
+}
+
+
+.accepted-offer-contact small {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+
+.accepted-offer-contact strong {
+  display: block;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #444;
+}
+
+
+/* =========================
+   DELETE CONFIRMATION MODAL
+========================= */
+
+.delete-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  padding: 24px;
+
+  background: rgba(15, 23, 42, 0.62);
+  backdrop-filter: blur(6px);
+}
+
+.delete-modal {
+  width: min(100%, 440px);
+
+  padding: 32px;
+
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 24px;
+
+  background: #ffffff;
+  box-shadow: 0 24px 80px rgba(15, 23, 42, 0.3);
+
+  text-align: center;
+
+  animation: deleteModalAppear 0.2s ease-out;
+}
+
+.delete-modal-icon {
+  width: 64px;
+  height: 64px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  margin: 0 auto 20px;
+
+  border-radius: 50%;
+
+  background: #fff1f2;
+
+  font-size: 28px;
+}
+
+.delete-modal h2 {
+  margin: 0 0 12px;
+
+  color: #172033;
+
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.delete-modal p {
+  margin: 8px 0;
+
+  color: #64748b;
+
+  font-size: 15px;
+  line-height: 1.5;
+}
+
+.delete-modal-title {
+  display: block;
+
+  margin: 12px auto 16px;
+
+  max-width: 100%;
+
+  overflow-wrap: anywhere;
+
+  color: #172033;
+
+  font-size: 17px;
+  font-weight: 700;
+}
+
+.delete-modal-warning {
+  color: #dc2626 !important;
+
+  font-size: 14px !important;
+}
+
+.delete-modal-actions {
+  display: flex;
+  gap: 12px;
+
+  margin-top: 28px;
+}
+
+.delete-modal-actions button {
+  flex: 1;
+
+  min-height: 46px;
+
+  border: 0;
+  border-radius: 12px;
+
+  font: inherit;
+  font-weight: 600;
+
+  cursor: pointer;
+
+  transition:
+    transform 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.delete-modal-actions button:hover:not(:disabled) {
+  transform: translateY(-1px);
+}
+
+.delete-modal-actions button:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.delete-modal-cancel {
+  background: #f1f5f9;
+  color: #475569;
+}
+
+.delete-modal-confirm {
+  background: #dc2626;
+  color: #ffffff;
+}
+
+@keyframes deleteModalAppear {
+  from {
+    opacity: 0;
+    transform: translateY(12px) scale(0.97);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@media (max-width: 520px) {
+  .delete-modal {
+    padding: 24px;
+  }
+
+  .delete-modal-actions {
+    flex-direction: column-reverse;
+  }
+}
+
